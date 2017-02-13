@@ -1,0 +1,15 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Test Index</title>
+    {{#each css}}
+      <style>{{{this}}}</style>
+    {{/each}}
+</head>
+<body id="body" class="vtest-body" style="padding: 1px; background-color: #fffffe">
+    <div id="root" class="vtest-root"></div>
+    {{#each js}}
+      <script src="{{{this}}}"></script>
+    {{/each}}
+</body>
+</html>
