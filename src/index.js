@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+const commander = require("commander")
+const path = require("path")
+
 const findTests = require("./utils/find-tests")
 const seleniumRunner = require("./tester/selenium-runner")
 const testDiffs = require("./tester/test-diffs")
@@ -13,8 +16,7 @@ const WebServer = require("./utils/web-server")
 const store = require("./utils/store")
 const utils = require("./utils/utils")
 const makeMaster = require("./utils/make-master")
-const commander = require("commander")
-const path = require("path")
+const SeleniumManager = require("./utils/selenium-manager")
 
 const appVersion = require(path.join(__dirname, "..", "package.json")).version
 
@@ -29,6 +31,7 @@ commander
   .option("-d, --download-before", "download master screenshots before running tests")
   .option("--upload", "upload new screenshots and quit")
   .option("--make-master", "make current screenshots into master and quit")
+  .option("--update-selenium", "update selenium and browser drivers")
   .parse(process.argv)
 
 function shutdown({ seleniumManager, webServer, exitCode = 0 }) {
@@ -67,7 +70,6 @@ function setupCleanShutdown({ seleniumManager, webServer }) {
 
 function fireZeEngines() {
   // eslint-disable-next-line global-require
-  const SeleniumManager = require("./utils/selenium-manager")
 
   const seleniumManager = new SeleniumManager()
   const webServer = new WebServer({ servePath: config.get("temp.build.path") })
@@ -107,7 +109,10 @@ function fireZeEngines() {
 if (require.main === module) {
   config.setAll(readConfig(commander))
 
-  if (config.get("args.upload")) {
+  if (config.get("args.updateSelenium")) {
+    const seleniumManager = new SeleniumManager()
+    seleniumManager.update()
+  } else if (config.get("args.upload")) {
     store.upload()
   } else if (config.get("args.makeMaster")) {
     makeMaster()

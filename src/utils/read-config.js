@@ -110,6 +110,13 @@ function readConfig(commander) {
   }
 
   /**
+   * Update Selenium
+   */
+  if (commander.updateSelenium) {
+    startArgs.updateSelenium = true
+  }
+
+  /**
    * Verbose
    */
   if (commander.verbose) {

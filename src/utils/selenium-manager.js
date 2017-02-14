@@ -50,6 +50,30 @@ class SeleniumManager {
     }, 1000)
   }
 
+  update() {
+    const wdmProcess = spawn("node", [wm, "update"])
+
+    process.on("SIGINT", () => {
+      wdmProcess.kill()
+    })
+
+    wdmProcess.stdout.on("data", data => {
+      utils.log(data.toString().replace(/\n$/gm, ""))
+    })
+
+    wdmProcess.stderr.on("data", data => {
+      utils.log(data.toString().replace(/\n$/gm, ""))
+    })
+
+    wdmProcess.on("close", code => {
+      if (code) {
+        utils.error("\nSomething went wrong when updating Selenium\n")
+      } else {
+        utils.info("\nSelenium and WebDrivers are updated!\n")
+      }
+    })
+  }
+
 }
 
 module.exports = SeleniumManager
