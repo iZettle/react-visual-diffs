@@ -6,11 +6,17 @@ const utils = require("./../utils/utils")
 const config = require("./../models/config")
 
 function filterAndSortFiles({ files, ext, sortByArray }) {
-  return files
+  const outFiles = files
     .filter(file => path.extname(file).toLowerCase() === ext)
+
+  if (ext === ".css") {
+    return outFiles
+  }
+
+  return outFiles
     .sort((a, b) => {
-      const indexA = sortByArray.indexOf(a)
-      const indexB = sortByArray.indexOf(b)
+      const indexA = sortByArray.findIndex(cur => a.match(cur) !== null)
+      const indexB = sortByArray.findIndex(cur => b.match(cur) !== null)
 
       if (indexB === -1) { return -1 }
       if (indexA === -1) { return 1 }
@@ -30,7 +36,7 @@ function buildIndexHTML() {
   const files = fs.readdirSync(config.get("temp.build.path"))
   const sortByArray = config.get("templates.mountingHTML.dependenciesOrder")
   const js = filterAndSortFiles({ files, ext: ".js", sortByArray })
-  const css = filterAndSortFiles({ files, ext: ".css", sortByArray })
+  const css = filterAndSortFiles({ files, ext: ".css" })
     .map(file => fs.readFileSync(path.join(config.get("temp.build.path"), file), "utf8"))
   const source = fs.readFileSync(
     config.get("templates.mountingHTML.index"),

@@ -113,15 +113,14 @@ module.exports = {
        * When injecting the dependencies into your index file, which order should
        * they be added in? Any dependencies not in this list will be added in random
        * order after dependencies in this list.
-       *
-       * Both CSS and JS dependencies can be specified (but js files
-       * are included as <script> and CSS files are included as <style> elements)
        */
       dependenciesOrder: [
         "manifest.js",
         "react.js",
         "react-dom.js",
-        "main.js"
+        /vendor.*\.js/,
+        /main.*\.js/,
+        /app.*\.js/
       ],
       /**
        * [ADVANCED]
