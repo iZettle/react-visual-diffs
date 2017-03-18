@@ -15,7 +15,7 @@ function modifyWebpackConfig(webpackConfig) {
   out.externals.react = "React"
   out.externals["react-dom"] = "ReactDOM"
 
-  out.entry = out.entry || {}
+  out.entry = {}
   out.entry.main = [].concat(config.get("build.webpackEntryMain", []))
   out.entry.main.push(config.get("temp.build.testIndex"))
 
