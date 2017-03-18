@@ -7,15 +7,15 @@ const components = {}
 const props = {}
 
 {{#each files}}
-import {{name}} from "{{path}}"
-import {{name}}Props from "{{propsPath}}"
+const {{name}} = require("{{path}}")
+const {{name}}Props = require("{{propsPath}}")
 {{/each}}
 
-import ComponentWrapper from "{{componentWrapper}}"
+const ComponentWrapper = require("{{componentWrapper}}")
 utils.ComponentWrapper = ComponentWrapper
 
 {{#if defaultContext}}
-import DefaultContext from "{{defaultContext}}"
+const DefaultContext = require("{{defaultContext}}")
 utils.DefaultContext = DefaultContext
 {{else}}
 utils.DefaultContext = {}
@@ -26,6 +26,8 @@ components.{{name}} = {{name}}
 props.{{name}} = {{name}}Props
 {{/each}}
 
-module.exports.utils = utils
-module.exports.components = components
-module.exports.props = props
+module.exports = {
+  utils,
+  components,
+  props
+}

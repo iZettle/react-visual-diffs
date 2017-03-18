@@ -65,8 +65,8 @@ function browserRenderReact({ driver, reactId, renderElement, variantIndex }) {
   utils.log(`   [${variantIndex}] ${reactId}`)
   const execStr = `ReactDOM.render(
       React.createElement(
-        window.vtest.utils.ComponentWrapper(
-          window.vtest.components.${reactId},
+        window.vtest.utils.ComponentWrapper.default(
+          window.vtest.components.${reactId}.default,
           window.vtest.props.${reactId},
           ${variantIndex},
           window.vtest.utils.DefaultContext
