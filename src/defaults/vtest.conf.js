@@ -179,7 +179,7 @@ module.exports = {
      * against new Retina screenshots. Therefor, when used by multiple users where
      * some are using Retina displays and some are not - emulate Retina!
      */
-    emulateRetina: true,
+    emulateRetina: false,
 
     /**
      * [ADVANCED]
@@ -199,7 +199,7 @@ module.exports = {
      * any subsequent tests are just re-mounting of a React component those resources
      * are already loaded.
      */
-    browserFirstTestWait: 3000,
+    browserFirstTestWait: 100,
     matrix: {
       /**
        * Which browsers should be used to take screenshots?
