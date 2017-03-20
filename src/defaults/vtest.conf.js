@@ -29,7 +29,7 @@ module.exports = {
     /**
      * Where to search for components and prop files?
      */
-    src: "src/**/*",
+    src: "{src,source}/**/*",
     componentFiles: {
       /**
        * Which file extensions do your components have?
@@ -139,7 +139,7 @@ module.exports = {
     /**
      * What Webpack should be used for compiling your components?
      */
-    webpackConfig: "webpack.conf.js",
+    webpackConfig: "webpack.config.js",
     /**
      * Note: Webpack main CAN NOT be configured in your Webpack conf as Vtest will
      * overwrite that setting with it's own.
